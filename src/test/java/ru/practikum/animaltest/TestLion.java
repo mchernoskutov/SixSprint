@@ -1,14 +1,12 @@
 package ru.practikum.animaltest;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-import com.example.Feline;
-import com.example.Predator;
 import org.junit.Assert;
 import org.junit.Test;
-import com.example.Lion;
+import ru.practicum.Feline;
+import ru.practicum.Lion;
+import ru.practicum.Predator;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestLion {
 
@@ -36,10 +34,9 @@ public class TestLion {
         foodList.add("Рыба");
         foodList.add("Птицы");
 
-        List<String> catFood = lion.getFood();
+        List<String> lionFood = lion.getFood();
 
-        Assert.assertTrue("Список еды для льва не соответствует ожидаемому списку мяса",foodList.containsAll(catFood));
-
+        Assert.assertTrue("Список еды для льва не соответствует ожидаемому списку мяса",foodList.containsAll(lionFood));
     }
 
     //тест на поедание травы
@@ -54,9 +51,4 @@ public class TestLion {
         Assert.assertFalse("Лев не может есть растения",lionFood.contains(food));
 
     }
-
-
-
-
-
 }

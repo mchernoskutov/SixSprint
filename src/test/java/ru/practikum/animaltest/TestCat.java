@@ -1,20 +1,16 @@
 package ru.practikum.animaltest;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.example.Feline;
 import org.junit.Assert;
 import org.junit.Test;
-import com.example.Cat;
-
-
+import ru.practicum.Cat;
+import ru.practicum.Feline;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestCat {
 
-    private Feline feline;
-    private Cat cat = new Cat(feline);
-
-
+    Feline feline;
+    private final Cat cat = new Cat(feline);
 
     //тест на мяуканье
     @Test
@@ -25,8 +21,6 @@ public class TestCat {
 
         Assert.assertEquals("Звук кошки не соответствует ожидаемому",expected,actual);
     }
-
-
 
     //тест на поедание мяса
     @Test
@@ -39,8 +33,7 @@ public class TestCat {
 
         List<String> catFood = cat.getFood();
 
-        Assert.assertTrue("Список еды для кошки не соответствует ожидаемому списку мяса",catFood.containsAll(foodList));
-
+        Assert.assertTrue("Список еды для кошки не соответствует ожидаемому списку мяса",foodList.containsAll(catFood));
     }
 
     //тест на поедание травы
@@ -55,7 +48,4 @@ public class TestCat {
         Assert.assertFalse("Кошка не может есть растения",catFood.contains(food));
 
     }
-
-
-
 }
