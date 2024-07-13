@@ -3,20 +3,20 @@ package ru.practikum.animaltest;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.Feline;
-import com.example.Predator;
 import org.junit.Assert;
 import org.junit.Test;
 import com.example.Cat;
 
 
 
-
 public class TestCat {
 
     private Feline feline;
-    private Predator predator;
     private Cat cat = new Cat(feline);
 
+
+
+    //тест на мяуканье
     @Test
     public void testCatSoundEqual() {
 
@@ -26,6 +26,9 @@ public class TestCat {
         Assert.assertEquals("Звук кошки не соответствует ожидаемому",expected,actual);
     }
 
+
+
+    //тест на поедание мяса
     @Test
     public void testCatEatMeat () throws Exception {
         List<String> foodList = new ArrayList<>();
@@ -40,6 +43,7 @@ public class TestCat {
 
     }
 
+    //тест на поедание травы
     @Test
     public void testCatCanNotEatGrass () throws Exception {
         String food = "Трава";

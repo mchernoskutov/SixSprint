@@ -8,14 +8,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
-public class TestLionMane {
+public class TestLionManeParam {
 
     private String sex;
 
-    public TestLionMane(String sex) {
+    public TestLionManeParam(String sex) {
         this.sex = sex;
     }
 
+    //параметры пола
     @Parameterized.Parameters
     public static Object[] getLionSex() {
         return new Object[][] {
@@ -25,21 +26,20 @@ public class TestLionMane {
         };
     }
 
+    //проверка наличия гривы
     @Test
     public void testLionMane()  {
 
         try {
             Lion lion = new Lion(sex);
 
-
-
             if (sex.equals("Самец")) {
-                Assert.assertTrue("Возвращает false, хотя лев самец", lion.doesHaveMane());
+                Assert.assertTrue("Проверка наличия гривы возвращает false, хотя лев самец", lion.doesHaveMane());
             } else if (sex.equals("Самка")) {
-                Assert.assertFalse("Возвращает true, хотя лев самка", lion.doesHaveMane());
+                Assert.assertFalse("Проверка наличия гривы возвращает true, хотя лев самка", lion.doesHaveMane());
             }
         }  catch (Exception exception) {
-
+            //проверка наличия текста об ошибке при некорректном значении
             String expectedError = "Используйте допустимые значения пола животного - Самец или Самка";
             String actualError = exception.toString();
 
