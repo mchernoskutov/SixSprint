@@ -1,19 +1,36 @@
 package ru.practikum.animaltest;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import ru.practicum.Feline;
 import ru.practicum.Lion;
-import ru.practicum.Predator;
-import java.util.ArrayList;
+
+
 import java.util.List;
 
+
+@RunWith(MockitoJUnitRunner.class)
 public class TestLion {
 
-    private Feline feline;
-    private Predator predator;
-    private Lion lion = new Lion(feline);
 
+    private Feline feline;
+    private Lion lion;
+
+    @Mock
+    private Feline felineMock;
+    private Lion lionTest;
+
+    @Before
+    public void setUp() throws Exception {
+            feline = new Feline();
+            lion = new Lion(feline, "Самец");
+            lionTest = new Lion(felineMock, "Самец");
+    }
 
     //тест на котят
     @Test
@@ -28,27 +45,31 @@ public class TestLion {
     //тест на поедание мяса
     @Test
     public void testLionEatMeat () throws Exception {
-        List<String> foodList = new ArrayList<>();
 
-        foodList.add("Животные");
-        foodList.add("Рыба");
-        foodList.add("Птицы");
+        List<String> foodList = List.of("Животные","Птицы","Рыба" ); //ожидаемое значение
+        List<String> lionFood = lion.getFood();  //актуальное значение
 
-        List<String> lionFood = lion.getFood();
+        lion = new Lion(feline, "Самец");
 
-        Assert.assertTrue("Список еды для льва не соответствует ожидаемому списку мяса",foodList.containsAll(lionFood));
+        Assert.assertEquals("Список еды для льва не соответствует ожидаемому списку мяса",foodList,lionFood);
     }
 
-    //тест на поедание травы
+    //проверка зависимости при поедании мяса
     @Test
-    public void testCatCanNotEatGrass () throws Exception {
-        String food = "Трава";
+    public void testLionEatMeatFelineMock () throws Exception {
 
-        List<String> lionFood = lion.getFood();
-        Assert.assertFalse("Лев не может есть траву",lionFood.contains(food));
+        List<String> foodList = List.of("Животные","Птицы","Рыба" );//ожидаемое значение
+        Mockito.when(felineMock.eatMeat()).thenReturn(List.of("Животные","Птицы","Рыба" ));
 
-        food = "Различные растения";
-        Assert.assertFalse("Лев не может есть растения",lionFood.contains(food));
+        List<String> lionFood = lionTest.getFood();//актуальное значение
 
+        Assert.assertEquals("Список еды для льва не соответствует ожидаемому списку мяса",foodList,lionFood);
+    }
+
+    //проверка наличия исключения при проверке гривы
+    @Test (expected = Exception.class)
+    public void testLionManeHaveException () throws Exception{
+        Lion lion = new Lion(feline, "123");
+        lion.doesHaveMane();
     }
 }

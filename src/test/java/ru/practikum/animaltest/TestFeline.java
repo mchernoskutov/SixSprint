@@ -9,8 +9,6 @@ import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import ru.practicum.Feline;
 
-
-
 @RunWith(MockitoJUnitRunner.class)
 public class TestFeline {
 
@@ -23,24 +21,22 @@ public class TestFeline {
         felineSpy.getKittens();
         Mockito.verify(felineSpy, Mockito.times(1)).getKittens(1);
     }
-    //тест на значение котят 1
+    //тест на значение котят отличного от значения по умолчанию
     @Test
     public void testGetKittensFeline1 (){
-        felineSpy.getKittens(1);
-        Mockito.verify(felineSpy, Mockito.times(1)).getKittens(1);
+
+        int expected = 2;
+        int actual = felineSpy.getKittens(2);
+        Assert.assertEquals("Число котят по умолчанию:"+ actual+ " не соответствует ожидаемому:"+expected,expected,actual);
     }
-    //тест на значение котят 5
-    @Test
-    public void testGetKittensFeline5 (){
-        felineSpy.getKittens(5);
-        Mockito.verify(felineSpy, Mockito.times(1)).getKittens(5);
-    }
+
     //проверка на семейство
     @Test
     public void testGetFelineFamily() {
+
         String expected = "Кошачьи";
         String actual = felineSpy.getFamily();
 
-        Assert.assertEquals("Семейство не соответствует кошачьему",actual,expected);
+        Assert.assertEquals("Семейство не соответствует кошачьему",expected,actual);
     }
 }

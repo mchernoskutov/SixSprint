@@ -5,12 +5,14 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import ru.practicum.Feline;
 import ru.practicum.Lion;
 
 @RunWith(Parameterized.class)
 public class TestLionManeParam {
 
-    private String sex;
+    private final String sex;
+    private final Feline feline = new Feline();
 
     public TestLionManeParam(String sex) {
         this.sex = sex;
@@ -28,10 +30,9 @@ public class TestLionManeParam {
 
     //проверка наличия гривы
     @Test
-    public void testLionMane()  {
-
+    public void testLionMane() {
         try {
-            Lion lion = new Lion(sex);
+            Lion lion = new Lion(feline, sex);
             //проверяем есть ли грива
             boolean hasMane = lion.doesHaveMane();
             //результат в зависимости от пола
@@ -41,11 +42,10 @@ public class TestLionManeParam {
                 Assert.assertFalse("Проверка наличия гривы возвращает true, хотя лев самка", hasMane);
             }
         }  catch (Exception exception) {
-            //проверка наличия текста об ошибке при некорректном значении
-            String expectedError = "Используйте допустимые значения пола животного - Самец или Самка";
-            String actualError = exception.toString();
 
-            Assert.assertTrue("Сообщение об ошибке не соответствует ожидаемому", actualError.contains(expectedError));
+            String expectedError = "Используйте допустимые значения пола животного - Самец или Самка";//ожидаемое сообщение об ошибке
+
+            Assert.assertEquals(expectedError, exception.getMessage());
         }
     }
 }
