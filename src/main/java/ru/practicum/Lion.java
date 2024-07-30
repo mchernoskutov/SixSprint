@@ -1,0 +1,32 @@
+package ru.practicum;
+
+import java.util.List;
+
+public class Lion {
+
+    boolean hasMane;
+    Predator lion;
+
+    public Lion(Feline feline, String sex) throws Exception {
+        this.lion = feline;
+        if ("Самец".equals(sex)) {
+            hasMane = true;
+        } else if ("Самка".equals(sex)) {
+            hasMane = false;
+        } else {
+            throw new Exception("Используйте допустимые значения пола животного - Самец или Самка");
+       }
+    }
+
+    public int getKittens() {
+        return lion.getKittens();
+    }
+
+    public boolean doesHaveMane() {
+        return hasMane;
+    }
+
+    public List<String> getFood() throws Exception {
+        return lion.eatMeat();
+    }
+}
